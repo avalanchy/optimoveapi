@@ -1,6 +1,4 @@
-import datetime
-
-from ..constants import DATE_FORMAT
+from ..helpers import str_to_date
 
 
 class General(object):
@@ -11,6 +9,5 @@ class General(object):
     def get_last_data_update(self):
         path = 'general/GetLastDataUpdate'
         body = self._transport.get(path)
-        date_str = body['Date']
-        dt = datetime.datetime.strptime(date_str, DATE_FORMAT)
-        return dt.date()
+        body['Date'] = str_to_date(body['Date'])
+        return body

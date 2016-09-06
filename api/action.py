@@ -1,4 +1,4 @@
-from ..constants import DATE_FORMAT
+from ..helpers import date_to_str
 
 
 class Action(object):
@@ -8,8 +8,7 @@ class Action(object):
 
     def get_executed_campaign_details(self, date):
         path = 'actions/GetExecutedCampaignDetails'
-        date_str = date.strftime(DATE_FORMAT)
         params = {
-            'Date': date_str,
+            'Date': date_to_str(date),
         }
         return self._transport.get(path, params)
