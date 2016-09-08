@@ -12,9 +12,9 @@ class ActionTests(ApiCategoryTestCase):
         httpretty.register_uri(
             httpretty.GET,
             BASE_URL + '/actions/GetExecutedCampaignDetails',
-            body='[]',
+            body='[]',  # TODO extend with mocked result
             content_type='application/json',
         )
         date = datetime.date(2016, 9, 6)
         body = self.optimove.action.get_executed_campaign_details(date)
-        assert body == []  # TODO extend with mocked result
+        assert body == []
