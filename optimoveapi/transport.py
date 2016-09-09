@@ -9,7 +9,7 @@ from .exceptions import (
 
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 
 
 class Transport(object):
