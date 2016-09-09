@@ -7,7 +7,7 @@ from ..constants import BASE_URL
 from ..utils import ApiCategoryTestCase
 
 
-class ActionTests(ApiCategoryTestCase):
+class ActionsTests(ApiCategoryTestCase):
 
     def test_get_executed_campaign_details(self):
         executed_campaigns = [
@@ -42,7 +42,7 @@ class ActionTests(ApiCategoryTestCase):
             content_type='application/json',
         )
         date = datetime.date(2016, 9, 5)
-        body = self.optimove.action.get_executed_campaign_details(date)
+        body = self.optimove.actions.get_executed_campaign_details(date)
         assert body == executed_campaigns
 
     def test_get_promo_codes_by_target_group(self):
@@ -54,5 +54,5 @@ class ActionTests(ApiCategoryTestCase):
             content_type='application/json',
         )
         date = datetime.date(2016, 9, 5)
-        body = self.optimove.action.get_promo_codes_by_target_group(1, date)
+        body = self.optimove.actions.get_promo_codes_by_target_group(1, date)
         assert body == promo_codes

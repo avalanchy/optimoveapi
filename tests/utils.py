@@ -7,7 +7,10 @@ from .constants import BASE_URL
 
 
 class ApiCategoryTestCase(TestCase):
-    """Base class for testing Optimove's category specific endpoints"""
+    """Base class for testing Optimove's category specific endpoints.
+
+    Enables HTTPretty and mocks login URI for every test.
+    """
 
     @classmethod
     def setUpClass(cls):
@@ -18,7 +21,7 @@ class ApiCategoryTestCase(TestCase):
         httpretty.register_uri(
             httpretty.POST,
             BASE_URL + '/general/login',
-            body='"token"',
+            body='"valid_token"',
             content_type='application/json',
         )
         # Share instantiated client
