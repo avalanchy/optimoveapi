@@ -39,19 +39,47 @@ class ActionsTests(ApiCategoryTestCase):
             httpretty.GET,
             BASE_URL + '/actions/GetExecutedCampaignDetails',
             body=json.dumps(executed_campaigns),
-            content_type='application/json',
         )
         date = datetime.date(2016, 9, 5)
         body = self.optimove.actions.get_executed_campaign_details(date)
         assert body == executed_campaigns
 
+    def test_get_promo_codes_by_campaign(self):
+        promo_codes = [
+            {
+              "RecipientGroupID": 1,
+              "ActionID": 85,
+              "PromoCode": ""
+            }
+        ]
+        httpretty.register_uri(
+            httpretty.GET,
+            BASE_URL + '/actions/GetPromoCodesByCampaign',
+            body=json.dumps(promo_codes),
+        )
+        body = self.optimove.actions.get_promo_codes_by_campaign(123)
+        assert body == promo_codes
+
     def test_get_promo_codes_by_target_group(self):
-        promo_codes = []  # TODO fill this with API dump
+        promo_codes = [
+            {
+                'RecipientGroupID': 1,
+                'ActionID': 24,
+                'PromoCode': 'HEP-FEB'
+            }, {
+                'RecipientGroupID': 2,
+                'ActionID': 25,
+                'PromoCode': 'HEP-FCC'
+            }, {
+                'RecipientGroupID': 1,
+                'ActionID': 65,
+                'PromoCode': 'GDG-FAL'
+            }
+        ]
         httpretty.register_uri(
             httpretty.GET,
             BASE_URL + '/actions/GetPromoCodesByTargetGroup',
             body=json.dumps(promo_codes),
-            content_type='application/json',
         )
         date = datetime.date(2016, 9, 5)
         body = self.optimove.actions.get_promo_codes_by_target_group(1, date)
