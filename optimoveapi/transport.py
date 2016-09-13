@@ -21,6 +21,9 @@ class Transport(object):
         self._username = username
         self._password = password
         self._session = requests.Session()
+        # This won't retry requests where data has made it way to the server
+        adapter = requests.sessions.HTTPAdapter(max_retries=2)
+        self._session.mount('https://', adapter)
 
     def get(self, path, data=None):
         return self._authorized_request('get', path, params=data)
