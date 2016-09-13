@@ -107,7 +107,7 @@ class TransportAuthorizedRequestTests(unittest.TestCase):
         """
         if uri.endswith('general/login'):
             return 200, headers, '"valid_token"'
-        auth_header = request.headers.get('authorization-token')
+        auth_header = request.headers.get(Transport.AUTH_HEADER)
         if auth_header == 'expired_token':
             return 403, headers, 'Authorization-Token Expired'
         if auth_header == 'valid_token':

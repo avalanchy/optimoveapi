@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.WARNING)
 
 
 class Transport(object):
-    """Class for network communication with Optimove.
+    """Network communication with Optimove.
 
     Keep single session, transparently handles authorization, covers errors.
     Utilizes requests library.
@@ -54,7 +54,7 @@ class Transport(object):
     def _authorized_request(self, method, path, json=None, params=None):
         """Transparently covers logic for Optimove's token-based authorization.
 
-        Requests token and sets it as a header. Repeats if token is expired.
+        Request the token and sets it as a header. Repeats if token is expired.
         """
         if self.AUTH_HEADER not in self._session.headers:
             logger.info('No token')
@@ -67,10 +67,9 @@ class Transport(object):
             return self._request(method, path, json, params)
 
     def _request(self, method, path, json=None, params=None):
-        """Lowest level code in scope of client that do request to
-        Optimove.
+        """Lowest level code in scope of client that do request to Optimove.
 
-        Check if something wen't wrong and if so - trows an OptimoveError
+        Checks if something went wrong and if so - trows an OptimoveError
         (or child) otherwise returns decoded json.
         """
         url = '{}/{}'.format(self._base_url, path)

@@ -13,7 +13,7 @@ class Customers(object):
         """Returns all pages merged.
 
         All customer-related endpoints return a maximum of 10,000 records
-        per page. To get all pages uses `$skip` parameter.
+        per page. To get all pages this method uses `$skip` parameter.
         """
         merged_pages = []
         skip = 0
