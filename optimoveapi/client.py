@@ -7,6 +7,11 @@ from .transport import Transport
 
 
 class Optimove(object):
+    """The only truth class for python-level Optimove communication.
+
+    Initializes transport layer and shares it's instance with all
+    endpoints categories.
+    """
 
     def __init__(self, base_url, username, password):
         transport = Transport(base_url, username, password)

@@ -2,6 +2,7 @@ from ..utils import date_to_str
 
 
 class Actions(object):
+    """Namespace class for action-related endpoints"""
 
     def __init__(self, transport):
         self._transport = transport

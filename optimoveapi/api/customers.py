@@ -2,6 +2,7 @@ from ..utils import date_to_str
 
 
 class Customers(object):
+    """Namespace class for customer-related endpoints"""
 
     MAX_PAGE_LENGTH = 10000
 
@@ -9,10 +10,10 @@ class Customers(object):
         self._transport = transport
 
     def _get_all_pages(self, path, params):
-        """ Returns all pages merged.
+        """Returns all pages merged.
 
         All customer-related endpoints return a maximum of 10,000 records
-        per page. To get all pages `$skip` parameter need to be used.
+        per page. To get all pages uses `$skip` parameter.
         """
         merged_pages = []
         skip = 0

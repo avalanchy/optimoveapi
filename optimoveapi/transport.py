@@ -13,6 +13,11 @@ logging.basicConfig(level=logging.WARNING)
 
 
 class Transport(object):
+    """Class for network communication with Optimove.
+
+    Keep single session, transparently handles authorization, covers errors.
+    Utilizes requests library.
+    """
 
     AUTH_HEADER = 'Authorization-Token'
 
@@ -26,12 +31,18 @@ class Transport(object):
         self._session.mount('https://', adapter)
 
     def get(self, path, data=None):
+        """Public method for GET-based endpoints"""
         return self._authorized_request('get', path, params=data)
 
     def post(self, path, data):
+        """Public method for POST-based endpoints"""
         return self._authorized_request('post', path, json=data)
 
     def _general_login(self):
+        """Method for obtaining authorization token by sending credentials.
+
+        Uses POST which is marginally more secure.
+        """
         path = 'general/login'
         json = {
             'Username': self._username,
@@ -41,6 +52,10 @@ class Transport(object):
         return self._request('post', path, json=json)
 
     def _authorized_request(self, method, path, json=None, params=None):
+        """Transparently covers logic for Optimove's token-based authorization.
+
+        Requests token and sets it as a header. Repeats if token is expired.
+        """
         if self.AUTH_HEADER not in self._session.headers:
             logger.info('No token')
             self._session.headers[self.AUTH_HEADER] = self._general_login()
@@ -52,6 +67,12 @@ class Transport(object):
             return self._request(method, path, json, params)
 
     def _request(self, method, path, json=None, params=None):
+        """Lowest level code in scope of client that do request to
+        Optimove.
+
+        Check if something wen't wrong and if so - trows an OptimoveError
+        (or child) otherwise returns decoded json.
+        """
         url = '{}/{}'.format(self._base_url, path)
         try:
             response = self._session.request(

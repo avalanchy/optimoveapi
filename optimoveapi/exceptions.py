@@ -1,5 +1,6 @@
 class OptimoveError(Exception):
     """Raised when request to API ends with some kind of error"""
+
     def __init__(self, message):
         self.message = message
 
@@ -12,6 +13,7 @@ class OptimoveError(Exception):
 
 class ExpiredToken(OptimoveError):
     """Raised when Optimove responses with  that token is expired"""
+
     CODE = 403
     MESSAGE = 'Authorization-Token Expired'
 

@@ -2,6 +2,7 @@ from ..utils import str_to_date
 
 
 class General(object):
+    """Namespace class for general endpoints"""
 
     def __init__(self, transport):
         self._transport = transport
