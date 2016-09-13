@@ -57,9 +57,9 @@ class Transport(object):
                 json=json,
                 params=params,
             )
-        except requests.RequestException:
+        except requests.RequestException as e:
             logger.exception('Requests lib raised an exception')
-            raise OptimoveError('Network error')
+            raise OptimoveError(str(e))
         is_token_expired = (
             response.status_code == ExpiredToken.CODE and
             response.text == ExpiredToken.MESSAGE

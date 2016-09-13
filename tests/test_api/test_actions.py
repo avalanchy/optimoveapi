@@ -47,9 +47,9 @@ class ActionsTests(ApiCategoryTestCase):
     def test_get_promo_codes_by_campaign(self):
         promo_codes = [
             {
-              "RecipientGroupID": 1,
-              "ActionID": 85,
-              "PromoCode": ""
+              'RecipientGroupID': 1,
+              'ActionID': 85,
+              'PromoCode': ''
             }
         ]
         httpretty.register_uri(

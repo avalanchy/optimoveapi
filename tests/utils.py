@@ -12,10 +12,11 @@ class ApiCategoryTestCase(TestCase):
     Enables HTTPretty and mocks login URI for every test.
     """
 
-    @classmethod
-    def setUpClass(cls):
-        # Enabling HTTPretty via `activate` decorator does not allow to mock
-        # URI in setUp or setUpClass, so I am doing this via enable()/disable()
+    def setUp(self):
+        # HTTPretty offers initializing it's socket's monkey-patching trough
+        # `activate` decorator. But it does not work setUp method, so I am
+        # doing this manually using `reset/enable/disable`.
+        httpretty.reset()
         httpretty.enable()
         # Mock login URI for every test
         httpretty.register_uri(
@@ -25,9 +26,8 @@ class ApiCategoryTestCase(TestCase):
             content_type='application/json',
         )
         # Share instantiated client
-        cls.optimove = Optimove(BASE_URL, 'username', 'password')
+        self.optimove = Optimove(BASE_URL, 'username', 'password')
 
-    @classmethod
-    def tearDownClass(cls):
+    def tearDown(self):
         httpretty.disable()
         httpretty.reset()
