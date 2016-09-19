@@ -40,3 +40,12 @@ class Customers(object):
             'Date': date_to_str(date),
         }
         return self._get_all_pages(path, params)
+
+    def get_customers_by_action(self, date, action_id, recipent_group_id):
+        path = 'customers/GetCustomersByAction'
+        params = {
+            'Date': date_to_str(date),
+            'ActionID': action_id,
+            'RecipientGroupID': recipent_group_id,
+        }
+        return self._get_all_pages(path, params)
