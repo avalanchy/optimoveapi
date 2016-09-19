@@ -90,3 +90,16 @@ class CustomersTests(ApiCategoryTestCase):
             datetime.date(2016, 9, 12),
         )
         assert body == customers
+
+    def test_get_customers_by_action(self):
+        customers = self.TEST_CUSTOMER * 2
+        httpretty.register_uri(
+            httpretty.GET,
+            BASE_URL + '/customers/GetCustomersByAction',
+            body=json.dumps(customers),
+            content_type='application/json',
+        )
+        body = self.optimove.customers.get_customers_by_action(
+            datetime.date(2016, 9, 12), 1, 2,
+        )
+        assert body == customers
