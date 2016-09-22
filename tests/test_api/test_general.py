@@ -13,7 +13,6 @@ class GeneralTests(ApiCategoryTestCase):
             httpretty.GET,
             BASE_URL + '/general/GetLastDataUpdate',
             body='{"Date": "2016-09-06"}',
-            content_type='application/json',
         )
         body = self.optimove.general.get_last_data_update()
         assert body == {'Date': datetime.date(2016, 9, 6)}

@@ -79,13 +79,22 @@ class TransportRequestTests(unittest.TestCase):
         with self.assertRaises(OptimoveError):
             self.transport._request('post', 'category/listResource')
 
+    def test_empty_body_returned(self):
+        httpretty.register_uri(
+            method=httpretty.POST,
+            uri=BASE_URL + '/category/NothingHere',
+            body='',
+            status=200,
+        )
+        body = self.transport._request('post', 'category/NothingHere')
+        assert body is None
+
     def test_bad_json_returned(self):
         httpretty.register_uri(
             method=httpretty.POST,
             uri=BASE_URL + '/category/listResource',
-            body='',
+            body='[',
             status=200,
-            content_type='application/json',
         )
         with self.assertRaises(OptimoveError):
             self.transport._request('post', 'category/listResource')

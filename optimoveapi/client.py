@@ -2,6 +2,7 @@ from .api import (
     Actions,
     Customers,
     General,
+    Integrations,
 )
 from .transport import Transport
 
@@ -18,3 +19,4 @@ class Optimove(object):
         self.actions = Actions(transport)
         self.customers = Customers(transport)
         self.general = General(transport)
+        self.integrations = Integrations(transport)

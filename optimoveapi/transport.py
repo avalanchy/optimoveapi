@@ -1,5 +1,6 @@
 import logging
 
+from simplejson import JSONDecodeError
 import requests
 
 from .exceptions import (
@@ -94,9 +95,11 @@ class Transport(object):
             logger.debug('Response HTTP code: %s', response.status_code)
             logger.debug('Response raw content: %s', response.content)
             raise OptimoveError('Unexpected returned code')
+        if response.headers['Content-Length'] == '0':
+            return None
         try:
             body = response.json()
-        except ValueError:
+        except JSONDecodeError:
             logger.exception('Unable to read returned JSON')
             logger.debug('Response HTTP code: %s', response.status_code)
             logger.debug('Response raw content: %s', response.content)
