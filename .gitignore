@@ -1,0 +1,4 @@
+*.pyc
+OptimoveAPI.egg-info/
+.eggs/
+.coverage
