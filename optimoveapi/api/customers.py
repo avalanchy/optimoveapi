@@ -1,4 +1,9 @@
+import logging
+
 from ..utils import date_to_str
+
+
+logger = logging.getLogger(__name__)
 
 
 class Customers(object):
@@ -42,10 +47,19 @@ class Customers(object):
         return self._get_all_pages(path, params)
 
     def get_customers_by_action(self, date, action_id, recipent_group_id):
+        logger.info(
+            'Getting customers for group %s action %s at %s',
+            recipent_group_id, action_id, date
+        )
         path = 'customers/GetCustomersByAction'
         params = {
             'Date': date_to_str(date),
             'ActionID': action_id,
             'RecipientGroupID': recipent_group_id,
         }
-        return self._get_all_pages(path, params)
+        customers = self._get_all_pages(path, params)
+        customers_ids = [
+            customer['CustomerID'] for customer in customers
+        ]
+        logger.info('Got %s customers', len(customers_ids))
+        return customers_ids
