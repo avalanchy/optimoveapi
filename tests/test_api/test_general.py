@@ -15,4 +15,4 @@ class GeneralTests(ApiCategoryTestCase):
             body='{"Date": "2016-09-06"}',
         )
         body = self.optimove.general.get_last_data_update()
-        assert body == {'Date': datetime.date(2016, 9, 6)}
+        assert body == datetime.date(2016, 9, 6)
