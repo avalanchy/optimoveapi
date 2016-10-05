@@ -100,4 +100,7 @@ class CustomersTests(ApiCategoryTestCase):
         body = self.optimove.customers.get_customers_by_action(
             datetime.date(2016, 9, 12), 1, 2,
         )
-        assert body == customers
+        expected_customers = [
+            customer['CustomerID'] for customer in customers
+        ]
+        assert body == expected_customers
